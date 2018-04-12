@@ -1,0 +1,390 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8A7983A8207C88E700BB65E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A7983A7207C88E700BB65E1 /* Assets.xcassets */; };
+		8A7983B6207C891600BB65E1 /* Mounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7983B3207C891600BB65E1 /* Mounter.swift */; };
+		8A7983B7207C891600BB65E1 /* CommandRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7983B4207C891600BB65E1 /* CommandRunner.swift */; };
+		8A7983BA207C8BAB00BB65E1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7983B9207C8BAB00BB65E1 /* main.swift */; };
+		8A7983DC207E8C9000BB65E1 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7983DB207E8C9000BB65E1 /* System.swift */; };
+		8A7983DE207E968700BB65E1 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7983DD207E968700BB65E1 /* Controller.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8A7983A2207C88E600BB65E1 /* Archive Mounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Archive Mounter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A7983A7207C88E700BB65E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8A7983AC207C88E700BB65E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A7983B3207C891600BB65E1 /* Mounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mounter.swift; sourceTree = "<group>"; };
+		8A7983B4207C891600BB65E1 /* CommandRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandRunner.swift; sourceTree = "<group>"; };
+		8A7983B9207C8BAB00BB65E1 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		8A7983DB207E8C9000BB65E1 /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
+		8A7983DD207E968700BB65E1 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
+		8A7983E5207EA69A00BB65E1 /* build-external.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = "build-external.py"; path = "Build/build-external.py"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8A79839F207C88E600BB65E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8A53B565207EC4F4001CA3EA /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				8A7983E5207EA69A00BB65E1 /* build-external.py */,
+			);
+			path = Build;
+			sourceTree = "<group>";
+		};
+		8A798399207C88E600BB65E1 = {
+			isa = PBXGroup;
+			children = (
+				8A53B565207EC4F4001CA3EA /* Build */,
+				8A7983A4207C88E600BB65E1 /* ArchiveMounter */,
+				8A7983A3207C88E600BB65E1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8A7983A3207C88E600BB65E1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8A7983A2207C88E600BB65E1 /* Archive Mounter.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8A7983A4207C88E600BB65E1 /* ArchiveMounter */ = {
+			isa = PBXGroup;
+			children = (
+				8A7983B3207C891600BB65E1 /* Mounter.swift */,
+				8A7983B4207C891600BB65E1 /* CommandRunner.swift */,
+				8A7983A7207C88E700BB65E1 /* Assets.xcassets */,
+				8A7983AC207C88E700BB65E1 /* Info.plist */,
+				8A7983B9207C8BAB00BB65E1 /* main.swift */,
+				8A7983DB207E8C9000BB65E1 /* System.swift */,
+				8A7983DD207E968700BB65E1 /* Controller.swift */,
+			);
+			path = ArchiveMounter;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8A7983A1207C88E600BB65E1 /* Archive Mounter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A7983B0207C88E700BB65E1 /* Build configuration list for PBXNativeTarget "Archive Mounter" */;
+			buildPhases = (
+				8A79839E207C88E600BB65E1 /* Sources */,
+				8A79839F207C88E600BB65E1 /* Frameworks */,
+				8A7983A0207C88E600BB65E1 /* Resources */,
+				8A7983BB207CB85400BB65E1 /* Swiftlint */,
+				8A53B564207EB135001CA3EA /* Build External Components */,
+				8A53B566207EC75B001CA3EA /* Copy External Components */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Archive Mounter";
+			productName = ArchiveMounter;
+			productReference = 8A7983A2207C88E600BB65E1 /* Archive Mounter.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8A79839A207C88E600BB65E1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Ilya Voronin";
+				TargetAttributes = {
+					8A7983A1207C88E600BB65E1 = {
+						CreatedOnToolsVersion = 9.3;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 8A79839D207C88E600BB65E1 /* Build configuration list for PBXProject "ArchiveMounter" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8A798399207C88E600BB65E1;
+			productRefGroup = 8A7983A3207C88E600BB65E1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8A7983A1207C88E600BB65E1 /* Archive Mounter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8A7983A0207C88E600BB65E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A7983A8207C88E700BB65E1 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8A53B564207EB135001CA3EA /* Build External Components */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Build/build-external.py",
+			);
+			name = "Build External Components";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/rar2fs/rar2fs",
+				"$(DERIVED_FILE_DIR)/fuse-zip/fuse-zip",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "python3 \"${SRCROOT}/Build/build-external.py\" build";
+			showEnvVarsInLog = 0;
+		};
+		8A53B566207EC75B001CA3EA /* Copy External Components */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy External Components";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "python3 \"${SRCROOT}/Build/build-external.py\" copy";
+			showEnvVarsInLog = 0;
+		};
+		8A7983BB207CB85400BB65E1 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swiftlint --enable-all-rules";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8A79839E207C88E600BB65E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A7983BA207C8BAB00BB65E1 /* main.swift in Sources */,
+				8A7983B7207C891600BB65E1 /* CommandRunner.swift in Sources */,
+				8A7983B6207C891600BB65E1 /* Mounter.swift in Sources */,
+				8A7983DC207E8C9000BB65E1 /* System.swift in Sources */,
+				8A7983DE207E968700BB65E1 /* Controller.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8A7983AE207C88E700BB65E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8A7983AF207C88E700BB65E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		8A7983B1207C88E700BB65E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ArchiveMounter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.ivoronin.ArchiveMounter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		8A7983B2207C88E700BB65E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ArchiveMounter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.ivoronin.ArchiveMounter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8A79839D207C88E600BB65E1 /* Build configuration list for PBXProject "ArchiveMounter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A7983AE207C88E700BB65E1 /* Debug */,
+				8A7983AF207C88E700BB65E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8A7983B0207C88E700BB65E1 /* Build configuration list for PBXNativeTarget "Archive Mounter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A7983B1207C88E700BB65E1 /* Debug */,
+				8A7983B2207C88E700BB65E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8A79839A207C88E600BB65E1 /* Project object */;
+}
