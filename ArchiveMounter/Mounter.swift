@@ -1,4 +1,4 @@
-import Cocoa
+import Foundation
 
 /** Mount flags */
 public struct MountFlags: OptionSet {
@@ -46,7 +46,7 @@ public class Mounter {
     }
 
     /** Mounts archive file */
-    public func mount() throws {
+    public func mount() throws -> String {
         let mounter: MountHelper = try MountHelperFactory.getHelper(fileType: fileType)
         let mountPoint: String = try createTemporaryDirectory()
 
@@ -65,8 +65,7 @@ public class Mounter {
         }
 
         try mounter.mount(filePath: filePath, mountPoint: mountPoint, mountOptions: options)
-
-        NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: mountPoint)
+        return mountPoint
     }
 
     /**

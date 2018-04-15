@@ -81,7 +81,8 @@ public class ViewController: NSViewController {
                 mounter.mountFlags.remove(.rdonly)
             }
 
-            try mounter.mount()
+            let mountPoint: String = try mounter.mount()
+            NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: mountPoint)
             NSApp.stop(nil)
         } catch {
             let alert: NSAlert = NSAlert()
