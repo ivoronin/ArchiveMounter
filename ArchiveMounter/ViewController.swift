@@ -99,9 +99,4 @@ public class ViewController: NSViewController {
             alert.runModal()
         }
     }
-
-    /** Handles "Cancel" button clicks */
-    @IBAction private func cancelButtonClicked(_ sender: NSButton) {
-        NSApp.stop(nil)
-    }
 }

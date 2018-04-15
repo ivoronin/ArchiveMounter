@@ -148,7 +148,7 @@ Gw
 </string>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="cancelButtonClicked:" target="83S-zd-oYz" id="4YR-pt-jGG"/>
+                                    <action selector="terminate:" target="MQK-9B-X8R" id="y6B-bf-cvg"/>
                                 </connections>
                             </button>
                         </subviews>
