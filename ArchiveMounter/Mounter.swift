@@ -1,87 +1,88 @@
-import Foundation
+import Cocoa
 
-/**
- Abstract Mounter Class
-  - Attention: This class should not be used directly
- */
+/** Mount flags */
+public struct MountFlags: OptionSet {
+    public let rawValue: Int
+
+    /** Mount read-only */
+    static public let rdonly: MountFlags = MountFlags(rawValue: 1 << 0)
+    /** Disallow ._ and .DS_Store files */
+    static public let noappledouble: MountFlags = MountFlags(rawValue: 1 << 1)
+    /** Make file system as local */
+    static public let local: MountFlags = MountFlags(rawValue: 1 << 2)
+
+    /** public initializer */
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+}
+
+/** Mounter */
 public class Mounter {
-    /** Name of mount helper utility bundled with app in Contents/Executables */
-    internal var helperName: String = ""
-    /** Absolute path to mount helper utility */
-    internal var helperPath: String {
-        get { // swiftlint:disable:this implicit_getter
-            return Bundle.main.bundleURL /* URL("/Applications/Archive Mounter.app") */
-                .appendingPathComponent("Contents")
-                .appendingPathComponent("Executables")
-                .appendingPathComponent(helperName).path
-        }
-    }
-    /** Additional mount options */
-    internal var additionalOptions: [String] = []
+    /** Path name to acrhive file */
+    public let filePath: String
+    /** Base name of archive file */
+    public let fileName: String
+    /** Extension of acrhive file */
+    public let fileType: String
+    /** Volume name to use */
+    public var volumeName: String
+    /** File name encoding */
+    public var encoding: String?
+    /** Mount flags, see `MountFlags` */
+    public var mountFlags: MountFlags = [.rdonly]
 
-    required public init() {
+    /**
+     - Returns: Mounter instance or `nil` if FUSE for macOS installation is not detected
+     - Parameters:
+        - filePath: Path to archive file
+     */
+    public init(filePath: String) {
+        self.filePath = filePath
+        let fileURL: URL = URL(fileURLWithPath: filePath)
+        self.fileName = fileURL.lastPathComponent
+        self.fileType = fileURL.pathExtension
+        self.volumeName = fileURL.deletingPathExtension().lastPathComponent
+    }
+
+    /** Mounts archive file */
+    public func mount() throws {
+        let mounter: MountHelper = try MountHelperFactory.getHelper(fileType: fileType)
+        let mountPoint: String = try createTemporaryDirectory()
+
+        var options: [String] = ["volname=\(volumeName)", "fsname=\(filePath)"]
+        if let encoding: String = encoding {
+            options.append(contentsOf: ["modules=iconv", "from_code=\(encoding)", "to_code=utf-8"])
+        }
+        if mountFlags.contains(.local) {
+            options.append("local")
+        }
+        if mountFlags.contains(.rdonly) {
+            options.append("ro")
+        }
+        if mountFlags.contains(.noappledouble) {
+            options.append("noappledouble")
+        }
+
+        try mounter.mount(filePath: filePath, mountPoint: mountPoint, mountOptions: options)
+
+        NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: mountPoint)
     }
 
     /**
-     Mounts specified archive file using mount helper utility
-     - Parameters:
-        - fileName: Path to archive file
-        - mountPoint: Path to mount point directory
-        - volumeName: Volume name to show in Finder
+     Creates temporary subdirectory in `$TMPDIR`
+     - Throws: `RuntimeError` on `createDirectory()` failure
+     - Note: Generated UUID is used as a subdirectory name
      */
-    public func mount(fileName: String, mountPoint: String, volumeName: String) throws {
-        var options: [String] = ["local", "ro", "volname=\(volumeName)"]
-        if !additionalOptions.isEmpty {
-            options.append(contentsOf: additionalOptions)
+    private func createTemporaryDirectory() throws -> String {
+        let uuid: String = UUID().uuidString
+        let url: URL = FileManager.default.temporaryDirectory.appendingPathComponent(uuid)
+        do {
+            try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            throw RuntimeError(message: "Failed to create temporary directory",
+                               description: error.localizedDescription)
         }
-        let arguments: [String] = ["-o", options.joined(separator: ","), fileName, mountPoint]
-
-        let command: CommandRunner = CommandRunner(path: helperPath, arguments: arguments)
-        try command.execute()
-        if command.status != 0 {
-            throw RuntimeError(message: "Unable to mount archive", description: command.error ?? "")
-        }
-    }
-}
-
-public class MounterFactory {
-    /** File extensions to mounter type mapping */
-    private static let mounters: [String: Mounter.Type]  = [
-        "zip": ZipMounter.self,
-        "rar": RarMounter.self
-    ]
-    /** Supported archive file extensions */
-    public static let allowedFileTypes: [String] = Array(Set(mounters.keys))
-
-    /**
-     Returns Mounter instance
-     - Parameters:
-        - fileExt: Acrhive file extension
-     - Returns: Mounter instance
-     - Throws: `RuntimeError` if no mounter is found for `fileExt`
-     */
-    public static func getMounter(fileExt: String) throws -> Mounter {
-        guard let mounter: Mounter.Type = MounterFactory.mounters[fileExt.lowercased()] else {
-            throw RuntimeError(message: "Unsupported file type",
-                               description: "Cannot open \"\(fileExt)\" archives")
-        }
-        return mounter.init()
-    }
-}
-
-/** ZIP archive mounter class */
-public class ZipMounter: Mounter {
-    required public init() {
-        super.init()
-        self.helperName = "fuse-zip"
-        self.additionalOptions = ["modules=iconv", "from_code=cp866", "to_code=utf-8"]
-    }
-}
-
-/** RAR archive mounter class */
-public class RarMounter: Mounter {
-    required public init() {
-        super.init()
-        self.helperName = "rar2fs"
+        return url.path
     }
 }
