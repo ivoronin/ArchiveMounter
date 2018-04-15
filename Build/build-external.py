@@ -14,6 +14,7 @@ SOURCES = {
     'rar2fs': {
         'url': 'https://github.com/hasse69/rar2fs',
         'version': 'v1.26.0',
+        'cherry-pick': ['1d6bf47979d9d15a0d4cfc48ddaee5a8716e88a9']
     },
     'libzip': {
         'url': 'https://github.com/nih-at/libzip',
