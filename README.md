@@ -1,13 +1,14 @@
-![Logo](https://github.com/ivoronin/ArchiveMounter/raw/master/ArchiveMounter/Assets.xcassets/AppIcon.appiconset/appicon-128.png) 
+![Logo](https://github.com/ivoronin/ArchiveMounter/raw/master/ArchiveMounter/Assets.xcassets/AppIcon.appiconset/appicon-128.png)
+
 # Archive Mounter
 **Archive Mounter** is a macOS application allowing to mount archive files as disk images.\
 It currently supports **ZIP** and **RAR** archives.
 
 ## Requirements
-You should download and install latest version of [FUSE for macOS](https://osxfuse.github.io/) before using this application.
+:exclamation:You should download and install latest version of [FUSE for macOS](https://osxfuse.github.io/) before using this application.
 
 ## Download
-Check [releases](https://github.com/ivoronin/ArchiveMounter/releases) page for downloading latest stable version.
+Latest stable release: [Archive-Mounter-1.2.dmg](https://github.com/ivoronin/ArchiveMounter/releases/download/v1.2/Archive-Mounter-1.2.dmg)
 
 ## Usage
 You can run app directly and choose an archive to mount or use it from **Finder**'s `Open With` context menu.\
