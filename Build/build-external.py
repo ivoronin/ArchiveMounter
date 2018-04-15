@@ -51,6 +51,9 @@ def cloned(component, vcs = 'git'):
     run(f'{vcs} clone "{url}" "{component}"')
     with cd(component):
         run(f'{vcs} checkout "{version}"')
+        if 'cherry-pick' in SOURCES[component]:
+            for commit in SOURCES[component]['cherry-pick']:
+                run(f'{vcs} cherry-pick "{commit}"')
         yield
 
 def build_libunrar():
@@ -93,8 +96,10 @@ def copy_all():
 
 if __name__ == '__main__':
     PATH = environ['PATH']
+    HOME = environ['HOME']
     environ.clear()
     environ['PATH'] = PATH
+    environ['HOME'] = HOME
     if len(argv) != 2:
         raise Exception('Wrong number of arguments')
     with cd(DERIVED_FILES_DIR):
