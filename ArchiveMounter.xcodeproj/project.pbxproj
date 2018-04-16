@@ -169,7 +169,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python3 \"${SRCROOT}/Build/build-external.py\" build";
+			shellScript = "[ \"${CI}\" ] || python3 \"${SRCROOT}/Build/build-external.py\" build";
 			showEnvVarsInLog = 0;
 		};
 		8A53B566207EC75B001CA3EA /* Copy External Components */ = {
@@ -184,7 +184,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python3 \"${SRCROOT}/Build/build-external.py\" copy";
+			shellScript = "[ \"${CI}\" ] || python3 \"${SRCROOT}/Build/build-external.py\" copy";
 			showEnvVarsInLog = 0;
 		};
 		8A7983BB207CB85400BB65E1 /* Swiftlint */ = {
@@ -199,7 +199,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "swiftlint --enable-all-rules";
+			shellScript = "[ \"${CI}\" ] || swiftlint --enable-all-rules";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
