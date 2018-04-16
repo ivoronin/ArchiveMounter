@@ -14,4 +14,4 @@ Latest stable release: [Archive-Mounter-1.2.dmg](https://github.com/ivoronin/Arc
 You can run app directly and choose an archive to mount or use it from **Finder**'s `Open With` context menu.\
 It is also possible to use Archive Mounter as a default app for opening archives (see [Apple KB article](https://support.apple.com/kb/ph25685)).
 
-![](https://c.statcounter.com/11683488/0/7baf940d/1/)
+[![HitCount](http://hits.dwyl.io/ivoronin/ArchiveMounter.svg)](http://hits.dwyl.io/ivoronin/ArchiveMounter)
