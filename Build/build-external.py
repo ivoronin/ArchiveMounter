@@ -18,7 +18,8 @@ SOURCES = {
     },
     'libzip': {
         'url': 'https://github.com/nih-at/libzip',
-        'version': 'rel-1-5-0',
+        'version': 'rel-1-5-1',
+        'cherry-pick': ['49b35508503812dbac5286d3f6dda53cdb7b7b59']
     },
     'fuse-zip': {
         'url': 'https://bitbucket.org/agalanin/fuse-zip',
