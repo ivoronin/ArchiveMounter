@@ -74,8 +74,13 @@ public class Mounter {
      - Note: Generated UUID is used as a subdirectory name
      */
     private func createTemporaryDirectory() throws -> String {
+        let url: URL
         let uuid: String = UUID().uuidString
-        let url: URL = FileManager.default.temporaryDirectory.appendingPathComponent(uuid)
+        if #available(OSX 10.12, *) {
+            url = FileManager.default.temporaryDirectory.appendingPathComponent(uuid)
+        } else {
+            url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(uuid)
+        }
         do {
             try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         } catch {

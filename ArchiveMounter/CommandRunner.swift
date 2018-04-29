@@ -13,6 +13,8 @@ public class CommandRunner {
     public var error: String?
     /** exis status */
     public var status: Int32?
+    /** shell special characters */
+    private let shellQuoteRegEx: NSRegularExpression
 
     /**
      Constructor
@@ -23,6 +25,9 @@ public class CommandRunner {
     public init(path: String, arguments: [String] = []) {
         self.path = path
         self.arguments = arguments
+        // The Open Group Base Specifications Issue 6, IEEE Std 1003.1, 2004 Edition, 2.2 Quoting
+        // swiftlint:disable:next force_try
+        self.shellQuoteRegEx = try! NSRegularExpression(pattern: "[|&;<>()$`\\\"'\\s\\t\\n*?\\[$~=%]", options: [])
     }
 
     /**
@@ -35,15 +40,25 @@ public class CommandRunner {
         let errorPipe: Pipe = Pipe()
         let process: Process = Process()
 
-        process.executableURL = URL(fileURLWithPath: path)
-        process.arguments = arguments
         process.standardOutput = outputPipe
         process.standardError = errorPipe
 
-        do {
-            try process.run()
-        } catch {
-            throw RuntimeError(message: "Command failed to run", description: error.localizedDescription)
+        if #available(OSX 10.14, *) {
+            process.executableURL = URL(fileURLWithPath: path)
+            process.arguments = arguments
+            do {
+                try process.run()
+            } catch {
+                throw RuntimeError(message: "Command failed to run", description: error.localizedDescription)
+            }
+        } else {
+            /* launch() throws runtime exceptions on exec() error, it's better to run /bin/sh instead */
+            process.launchPath = "/bin/sh"
+            let quotedPath: String = shellQuote(string: path)
+            let quotedArguments: [String] = arguments.map { "\"\(shellQuote(string: $0))\"" }
+            let command: String = ([quotedPath] + quotedArguments).joined(separator: " ")
+            process.arguments = ["-c", command]
+            process.launch()
         }
 
         process.waitUntilExit()
@@ -51,6 +66,17 @@ public class CommandRunner {
         output = readPipe(pipe: outputPipe)
         error = readPipe(pipe: errorPipe)
         status = process.terminationStatus
+    }
+
+    /**
+     Escapes special characters in string
+     - Parameters:
+        - string: Input string
+     - Returns: Escaped string
+     */
+    private func shellQuote(string: String) -> String {
+        let range: NSRange = NSRange(location: 0, length: string.count)
+        return shellQuoteRegEx.stringByReplacingMatches(in: string, options: [], range: range, withTemplate: "\\\\$0")
     }
 
     /**
