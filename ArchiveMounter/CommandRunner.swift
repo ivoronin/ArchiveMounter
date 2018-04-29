@@ -54,9 +54,8 @@ public class CommandRunner {
         } else {
             /* launch() throws runtime exceptions on exec() error, it's better to run /bin/sh instead */
             process.launchPath = "/bin/sh"
-            let quotedPath: String = shellQuote(string: path)
-            let quotedArguments: [String] = arguments.map { "\"\(shellQuote(string: $0))\"" }
-            let command: String = ([quotedPath] + quotedArguments).joined(separator: " ")
+            let command: String = ([path] + arguments).map(shellQuote).joined(separator: " ")
+            print(command)
             process.arguments = ["-c", command]
             process.launch()
         }
