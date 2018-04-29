@@ -43,7 +43,7 @@ public class CommandRunner {
         process.standardOutput = outputPipe
         process.standardError = errorPipe
 
-        if #available(OSX 10.14, *) {
+        if #available(OSX 10.13, *) {
             process.executableURL = URL(fileURLWithPath: path)
             process.arguments = arguments
             do {
