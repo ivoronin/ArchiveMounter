@@ -18,7 +18,7 @@ public class WindowController: NSWindowController, NSWindowDelegate {
 }
 
 /** Main view controller */
-public class ViewController: NSViewController {
+public class MainViewController: NSViewController {
     private var mounter: Mounter?
     @IBOutlet private var archiveNameField: NSTextField!
     @IBOutlet private var volumeNameField: NSTextField!

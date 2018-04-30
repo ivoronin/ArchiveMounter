@@ -1,5 +1,9 @@
 import AppKit
 
+public struct Constants {
+    static public let mountPointName: String = "_ArchiveMounter"
+}
+
 @NSApplicationMain
 public class AppDelegate: NSObject, NSApplicationDelegate {
     /** Handles `applicationDidFinishLaunching` event */
