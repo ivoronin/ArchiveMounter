@@ -14,6 +14,7 @@
 		8AC4FBD82081F9DC003149F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4FBD72081F9DC003149F7 /* AppDelegate.swift */; };
 		8AC4FBDA20821682003149F7 /* Mounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4FBD920821682003149F7 /* Mounter.swift */; };
 		8AC4FBDC208221D5003149F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AC4FBDB208221D5003149F7 /* Main.storyboard */; };
+		8AEAF9B420971CBB00EBDD61 /* VolumesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEAF9B320971CBB00EBDD61 /* VolumesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		8AC4FBD72081F9DC003149F7 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AC4FBD920821682003149F7 /* Mounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mounter.swift; sourceTree = "<group>"; };
 		8AC4FBDB208221D5003149F7 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		8AEAF9B320971CBB00EBDD61 /* VolumesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			children = (
 				8AC4FBD72081F9DC003149F7 /* AppDelegate.swift */,
 				8A0754D1208249FB00BCB9D9 /* ViewController.swift */,
+				8AEAF9B320971CBB00EBDD61 /* VolumesViewController.swift */,
 				8AC4FBD920821682003149F7 /* Mounter.swift */,
 				8A7983B3207C891600BB65E1 /* MountHelper.swift */,
 				8A7983B4207C891600BB65E1 /* CommandRunner.swift */,
@@ -211,6 +214,7 @@
 			files = (
 				8A7983B7207C891600BB65E1 /* CommandRunner.swift in Sources */,
 				8AC4FBDA20821682003149F7 /* Mounter.swift in Sources */,
+				8AEAF9B420971CBB00EBDD61 /* VolumesViewController.swift in Sources */,
 				8A7983B6207C891600BB65E1 /* MountHelper.swift in Sources */,
 				8A0754D2208249FB00BCB9D9 /* ViewController.swift in Sources */,
 				8AC4FBD82081F9DC003149F7 /* AppDelegate.swift in Sources */,
