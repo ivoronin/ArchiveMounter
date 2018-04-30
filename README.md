@@ -11,7 +11,7 @@ It currently supports **ZIP** and **RAR** archives.
 :exclamation:You should download and install latest version of [FUSE for macOS](https://osxfuse.github.io/) before using this application.
 
 ## Download
-Latest stable release: [Archive-Mounter-1.2.dmg](https://github.com/ivoronin/ArchiveMounter/releases/download/v1.2/Archive-Mounter-1.2.dmg)
+Latest stable release: [Archive.Mounter.1.3.0.dmg](https://github.com/ivoronin/ArchiveMounter/releases/download/v1.3.0/Archive.Mounter.1.3.0.dmg)
 
 ## Usage
 You can run app directly and choose an archive to mount or use it from **Finder**'s `Open With` context menu.\
