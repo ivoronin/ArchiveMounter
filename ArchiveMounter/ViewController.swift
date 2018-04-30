@@ -25,7 +25,6 @@ public class WindowController: NSWindowController, NSWindowDelegate {
 /** Main view controller */
 public class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     private var mounter: Mounter?
-    @IBOutlet private var mainWindow: NSWindow!
     @IBOutlet private var archiveNameField: NSTextField!
     @IBOutlet private var volumeNameField: NSTextField!
     @IBOutlet private var encodingComboBox: NSComboBox!
