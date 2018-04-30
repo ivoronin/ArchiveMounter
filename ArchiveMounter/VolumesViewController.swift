@@ -123,6 +123,10 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
         }
     }
 
+    private func openVolume(volume: Volume) {
+        NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: volume.mountPoint.path)
+    }
+
     /** Handles "Unmount" button clicks */
     @IBAction private func unmountButtonClicked(_ sender: NSButton) {
         let index: Int = volumesTableView.selectedRow
@@ -145,8 +149,12 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
         guard index != -1 else {
             return
         }
-        let volume: Volume = mountedVolumes[index]
-        NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: volume.mountPoint.path)
+        openVolume(volume: mountedVolumes[index])
+    }
+
+    @IBAction private func tableDoubleClicked(_ sender: NSTableView) {
+        let index: Int = sender.clickedRow
+        openVolume(volume: mountedVolumes[index])
     }
 
 }
