@@ -25,8 +25,8 @@ public class MainViewController: NSViewController {
     @IBOutlet private var encodingComboBox: NSComboBox!
     @IBOutlet private var readOnlyCheckBox: NSButton!
 
-    override public func viewDidLoad() {
-        super.viewDidLoad()
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
         /* Watch for "openFile" notifications */
         let center: NotificationCenter = NotificationCenter.default
         _ = center.addObserver(forName: Notification.Name("openFile"), object: nil, queue: nil, using: fileOpened)
@@ -39,19 +39,7 @@ public class MainViewController: NSViewController {
      */
     private func fileOpened(notification: Notification) {
         if let filePath: String = notification.userInfo?["filePath"] as? String {
-            /* Build mount point path */
-            let tempUrl: URL
-            if #available(OSX 10.12, *) {
-                tempUrl = FileManager.default.temporaryDirectory
-            } else {
-                tempUrl = URL(fileURLWithPath: NSTemporaryDirectory())
-            }
-            let uuid: String = UUID().uuidString
-            let mountPointUrl: URL = tempUrl
-                .appendingPathComponent(uuid)
-                .appendingPathComponent(Constants.mountPointName)
-
-            mounter = Mounter(filePath: filePath, mountPoint: mountPointUrl.path)
+            mounter = Mounter(filePath: filePath)
             if let mounter: Mounter = mounter {
                 /* Update view with current values */
                 archiveNameField.stringValue = mounter.fileName
