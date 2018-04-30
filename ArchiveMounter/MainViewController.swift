@@ -20,35 +20,19 @@ public class WindowController: NSWindowController, NSWindowDelegate {
 /** Main view controller */
 public class MainViewController: NSViewController {
     private var mounter: Mounter?
-    @IBOutlet private var archiveNameField: NSTextField!
+    @IBOutlet private var archivePathField: NSTextField!
     @IBOutlet private var volumeNameField: NSTextField!
     @IBOutlet private var encodingComboBox: NSComboBox!
     @IBOutlet private var readOnlyCheckBox: NSButton!
 
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        /* Watch for "openFile" notifications */
-        let center: NotificationCenter = NotificationCenter.default
-        _ = center.addObserver(forName: Notification.Name("openFile"), object: nil, queue: nil, using: fileOpened)
-    }
-
     /**
-     Handles "openFile" notifications
+     Updates archivePath field
      - Parameters:
-        - notification: `Notification` object
+        - fileName: File name
      */
-    private func fileOpened(notification: Notification) {
-        if let filePath: String = notification.userInfo?["filePath"] as? String {
-            mounter = Mounter(filePath: filePath)
-            if let mounter: Mounter = mounter {
-                /* Update view with current values */
-                archiveNameField.stringValue = mounter.fileName
-                archiveNameField.toolTip = mounter.filePath
-                volumeNameField.stringValue = mounter.volumeName
-                encodingComboBox.stringValue = mounter.encoding ?? ""
-                readOnlyCheckBox.state = mounter.mountFlags.contains(.rdonly) ? .on : .off
-            }
-        }
+    public func openFile(filePath: String) {
+        archivePathField.stringValue = filePath
+        archivePathField.toolTip = filePath
     }
 
     /** Handles "Browse" button clicks */
@@ -57,8 +41,7 @@ public class MainViewController: NSViewController {
         panel.allowedFileTypes = MountHelperFactory.allowedFileTypes
         if panel.runModal() == .OK {
             if let filePath: String = panel.urls.first?.path {
-                let center: NotificationCenter = NotificationCenter.default
-                center.post(name: NSNotification.Name("openFile"), object: nil, userInfo: ["filePath": filePath])
+                openFile(filePath: filePath)
             }
         }
     }
@@ -66,23 +49,37 @@ public class MainViewController: NSViewController {
     /** Handles "Mount" button clicks */
     @IBAction private func mountButtonClicked(_ sender: NSButton) {
         do {
-            guard let mounter: Mounter = mounter else {
+            guard !archivePathField.stringValue.isEmpty else {
                 throw RuntimeError(message: "Invalid input", description: "Please select an archive to mount")
             }
-            guard !volumeNameField.stringValue.isEmpty else {
-                throw RuntimeError(message: "Invalid input", description: "Volume name can't be empty")
-            }
+            let archivePath: URL = URL(fileURLWithPath: archivePathField.stringValue)
 
-            mounter.volumeName = volumeNameField.stringValue
-            mounter.encoding = encodingComboBox.stringValue.isEmpty ? nil : encodingComboBox.stringValue
-            if readOnlyCheckBox.state == .on {
-                mounter.mountFlags.insert(.rdonly)
+            let volumeName: String
+            if volumeNameField.stringValue.isEmpty {
+                volumeName = archivePath.deletingPathExtension().lastPathComponent
             } else {
-                mounter.mountFlags.remove(.rdonly)
+                volumeName = volumeNameField.stringValue
             }
 
-            let mountPoint: String = try mounter.mount()
-            NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: mountPoint)
+            var mountPoint: URL
+            if #available(OSX 10.12, *) {
+                mountPoint = FileManager.default.temporaryDirectory
+            } else {
+                mountPoint = URL(fileURLWithPath: NSTemporaryDirectory())
+            }
+            mountPoint.appendPathComponent(UUID().uuidString)
+            mountPoint.appendPathComponent(Constants.mountPointName)
+
+            let encoding: String? = encodingComboBox.stringValue.isEmpty ? nil : encodingComboBox.stringValue
+            let readOnly: Bool = readOnlyCheckBox.state == .on
+
+            try Mounter.mount(archivePath: archivePath,
+                              mountPoint: mountPoint,
+                              encoding: encoding,
+                              volumeName: volumeName,
+                              readOnly: readOnly)
+
+            NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: mountPoint.path)
             NSApp.stop(nil)
         } catch {
             let alert: NSAlert = NSAlert()

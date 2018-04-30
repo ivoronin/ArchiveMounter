@@ -30,9 +30,9 @@ public class MountHelper {
         - mountPoint: Path to mount point directory
         - mountOptions: Mount options
      */
-    public func mount(filePath: String, mountPoint: String, mountOptions: [String]) throws {
+    public func mount(archivePath: String, mountPoint: String, mountOptions: [String]) throws {
         let optionsString: String = mountOptions.joined(separator: ",")
-        let arguments: [String] = ["-o", optionsString, filePath, mountPoint]
+        let arguments: [String] = ["-o", optionsString, archivePath, mountPoint]
 
         let command: CommandRunner = CommandRunner(path: helperPath, arguments: arguments)
         try command.execute()

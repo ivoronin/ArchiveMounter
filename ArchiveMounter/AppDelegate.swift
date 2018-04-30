@@ -29,9 +29,7 @@ public class AppDelegate: NSObject, NSApplicationDelegate {
 
     /** Handles `openFile` event, fired before `applicationDidFinishLaunching` */
     public func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        NotificationCenter.default.post(name: Notification.Name("openFile"),
-                                        object: nil,
-                                        userInfo: ["filePath": filename])
+        (sender.mainWindow?.contentViewController as? MainViewController)?.openFile(filePath: filename)
         return true
     }
 }
