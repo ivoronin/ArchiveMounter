@@ -26,7 +26,9 @@
 		8A7983AC207C88E700BB65E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A7983B3207C891600BB65E1 /* MountHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MountHelper.swift; sourceTree = "<group>"; };
 		8A7983B4207C891600BB65E1 /* CommandRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandRunner.swift; sourceTree = "<group>"; };
-		8A7983E5207EA69A00BB65E1 /* build-external.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = "build-external.py"; path = "Build/build-external.py"; sourceTree = SOURCE_ROOT; };
+		8A7983E5207EA69A00BB65E1 /* build_external.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = build_external.py; sourceTree = SOURCE_ROOT; };
+		8AB4CEC320974F7E0090FC73 /* build_common.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = build_common.py; sourceTree = "<group>"; };
+		8AB4CEC5209750060090FC73 /* build_release.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = build_release.py; sourceTree = "<group>"; };
 		8AC4FBD72081F9DC003149F7 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AC4FBD920821682003149F7 /* Mounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mounter.swift; sourceTree = "<group>"; };
 		8AC4FBDB208221D5003149F7 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -44,18 +46,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8A53B565207EC4F4001CA3EA /* Build */ = {
-			isa = PBXGroup;
-			children = (
-				8A7983E5207EA69A00BB65E1 /* build-external.py */,
-			);
-			path = Build;
-			sourceTree = "<group>";
-		};
 		8A798399207C88E600BB65E1 = {
 			isa = PBXGroup;
 			children = (
-				8A53B565207EC4F4001CA3EA /* Build */,
+				8AB4CEC5209750060090FC73 /* build_release.py */,
+				8AB4CEC320974F7E0090FC73 /* build_common.py */,
+				8A7983E5207EA69A00BB65E1 /* build_external.py */,
 				8A7983A4207C88E600BB65E1 /* ArchiveMounter */,
 				8A7983A3207C88E600BB65E1 /* Products */,
 			);
@@ -166,7 +162,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Build/build-external.py",
+				"$(SRCROOT)/build_external.py",
 			);
 			name = "Build External Components";
 			outputPaths = (
@@ -175,7 +171,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "[ \"${CI}\" ] || python3 \"${SRCROOT}/Build/build-external.py\" build";
+			shellScript = "[ \"${CI}\" ] || python3 \"${SRCROOT}/build_external.py\" build";
 			showEnvVarsInLog = 0;
 		};
 		8A53B566207EC75B001CA3EA /* Copy External Components */ = {
@@ -190,7 +186,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "[ \"${CI}\" ] || python3 \"${SRCROOT}/Build/build-external.py\" copy";
+			shellScript = "[ \"${CI}\" ] || python3 \"${SRCROOT}/build_external.py\" copy";
 			showEnvVarsInLog = 0;
 		};
 		8A7983BB207CB85400BB65E1 /* Swiftlint */ = {

@@ -1,7 +1,7 @@
-from os import system, chdir, getcwd, environ
-from sys import stderr, argv
-from os.path import realpath, dirname, expanduser
+from os import environ
+from sys import argv
 from contextlib import contextmanager
+from build_common import *
 
 DERIVED_FILES_DIR = environ['DERIVED_FILES_DIR']
 BUILT_PRODUCTS_DIR = environ['BUILT_PRODUCTS_DIR']
@@ -26,24 +26,6 @@ SOURCES = {
         'version': '0.4.5'
     }
 }
-
-@contextmanager
-def cd(newPath):
-    savedPath = getcwd()
-    chdir(expanduser(newPath))
-    yield
-    chdir(savedPath)
-
-def run(command):
-    rv = system(command)
-    if(rv != 0):
-        raise Exception(f'{command} exited with status {rv}')
-
-def rmrf(dir):
-    run(f'rm -rf "{dir}"')
-
-def make(options = None):
-    run('make') if options is None else run(f'make {options}')
 
 @contextmanager
 def cloned(component, vcs = 'git'):

@@ -27,3 +27,4 @@ It is also possible to use Archive Mounter as a default app for opening archives
  - pkg-config
  - python@3
  - swiftlint
+ - npm
