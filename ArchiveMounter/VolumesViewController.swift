@@ -1,16 +1,19 @@
 import Cocoa
 
 public class VolumesViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+    /** Volume structure */
     public struct Volume {
+        /** Volume name */
         public let name: String
-        public let mountPoint: String
+        /** Mount point URL */
+        public let mountPoint: URL
+        /** Path to device (archive file) */
         public let deviceName: String
     }
-
-    @IBOutlet private var volumesTableView: NSTableView!
-
     /** Mounted volume list */
     private var mountedVolumes: [Volume] = []
+
+    @IBOutlet private var volumesTableView: NSTableView!
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +29,8 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
         /* Populate volumes table */
         updateVolumesTable()
     }
+
+    /** Enumerates mounted volumes and populates view */
     private func updateVolumesTable() {
         /* Enumerate mounted volumes */
         let keys: [URLResourceKey] = [.volumeNameKey] /* Properties to prefetch */
@@ -52,13 +57,19 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
                 NSLog("Error obtaining device name of URL \"%@\"", url.path)
                 continue
             }
-            mountedVolumes.append(Volume(name: volumeName, mountPoint: url.path, deviceName: deviceName))
+            mountedVolumes.append(Volume(name: volumeName, mountPoint: url, deviceName: deviceName))
         }
 
         /* Update view */
         volumesTableView.reloadData()
     }
 
+    /**
+     Uses statfs() to get device name
+     - Parameters:
+        - path: Path to file or directory
+     - Returns: Device name or nil
+     */
     private func getDeviceName(of path: String) -> String? {
         /* Get "device" name */
         let buf: UnsafeMutablePointer<statfs> = UnsafeMutablePointer<statfs>.allocate(capacity: 1)
@@ -75,18 +86,20 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
         }
     }
 
+    /** Returns number of volumes */
     public func numberOfRows(in tableView: NSTableView) -> Int {
         return mountedVolumes.count
     }
 
+    /** Returns table cell views */
     public func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let ident: NSUserInterfaceItemIdentifier = tableColumn?.identifier else {
+        guard let identifier: NSUserInterfaceItemIdentifier = tableColumn?.identifier else {
             return nil
         }
         let volume: Volume = mountedVolumes[row]
         // swiftlint:disable:next force_cast
-        let cell: NSTableCellView = tableView.makeView(withIdentifier: ident, owner: self) as! NSTableCellView
-        switch ident.rawValue {
+        let cell: NSTableCellView = tableView.makeView(withIdentifier: identifier, owner: self) as! NSTableCellView
+        switch identifier.rawValue {
         case "volumeName":
             cell.textField?.stringValue = volume.name
         case "deviceName":
@@ -98,9 +111,10 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
         return cell
     }
 
+    /** Unmounts single volume */
     private func unmountVolume(volume: Volume) {
         do {
-            try NSWorkspace.shared.unmountAndEjectDevice(at: URL(fileURLWithPath: volume.mountPoint))
+            try NSWorkspace.shared.unmountAndEjectDevice(at: volume.mountPoint)
         } catch {
             let alert: NSAlert = NSAlert()
             alert.messageText = "Error unmounting volume \(volume.name)"
@@ -132,7 +146,7 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
             return
         }
         let volume: Volume = mountedVolumes[index]
-        NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: volume.mountPoint)
+        NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: volume.mountPoint.path)
     }
 
 }
