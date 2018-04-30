@@ -29,10 +29,10 @@
             </objects>
             <point key="canvasLocation" x="-104" y="158"/>
         </scene>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="qBe-FQ-Cib">
             <objects>
-                <viewController id="83S-zd-oYz" customClass="ViewController" customModule="Archive_Mounter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="83S-zd-oYz" customClass="MainViewController" customModule="Archive_Mounter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Xo4-07-REV">
                         <rect key="frame" x="0.0" y="0.0" width="520" height="207"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -190,7 +190,7 @@ Gw
                                 <rect key="frame" x="20" y="61" width="760" height="319"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" id="vsE-8o-bEo">
-                                    <rect key="frame" x="1" y="23" width="758" height="295"/>
+                                    <rect key="frame" x="1" y="0.0" width="758" height="318"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="EuG-3w-pKb" viewBased="YES" id="R5c-hz-cS4">
@@ -275,7 +275,7 @@ Gw
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="GbS-sh-VHy">
-                                    <rect key="frame" x="1" y="302" width="758" height="16"/>
+                                    <rect key="frame" x="1" y="7" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="9Km-wS-sl6">

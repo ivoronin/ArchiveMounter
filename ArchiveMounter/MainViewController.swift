@@ -8,12 +8,6 @@ public struct RuntimeError: Error {
     public var description: String
 }
 
-public struct Volume {
-    public let name: String
-    public let mountPoint: String
-    public let deviceName: String
-}
-
 /** Main window controller */
 public class WindowController: NSWindowController, NSWindowDelegate {
     /** Terminate application when window is closed by user */
@@ -24,27 +18,18 @@ public class WindowController: NSWindowController, NSWindowDelegate {
 }
 
 /** Main view controller */
-public class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+public class MainViewController: NSViewController {
     private var mounter: Mounter?
     @IBOutlet private var archiveNameField: NSTextField!
     @IBOutlet private var volumeNameField: NSTextField!
     @IBOutlet private var encodingComboBox: NSComboBox!
     @IBOutlet private var readOnlyCheckBox: NSButton!
 
-    /** Mount point directory name */
-    private let mountPointName: String = "_ArchiveMounter"
-
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-
     override public func viewDidLoad() {
         super.viewDidLoad()
-        /* Local notifications */
-        _ = NotificationCenter.default.addObserver(forName: Notification.Name("openFile"),
-                                                   object: nil,
-                                                   queue: nil,
-                                                   using: fileOpened)
+        /* Watch for "openFile" notifications */
+        let center: NotificationCenter = NotificationCenter.default
+        _ = center.addObserver(forName: Notification.Name("openFile"), object: nil, queue: nil, using: fileOpened)
     }
 
     /**
@@ -62,7 +47,9 @@ public class ViewController: NSViewController, NSTableViewDataSource, NSTableVie
                 tempUrl = URL(fileURLWithPath: NSTemporaryDirectory())
             }
             let uuid: String = UUID().uuidString
-            let mountPointUrl: URL = tempUrl.appendingPathComponent(uuid).appendingPathComponent(mountPointName)
+            let mountPointUrl: URL = tempUrl
+                .appendingPathComponent(uuid)
+                .appendingPathComponent(Constants.mountPointName)
 
             mounter = Mounter(filePath: filePath, mountPoint: mountPointUrl.path)
             if let mounter: Mounter = mounter {

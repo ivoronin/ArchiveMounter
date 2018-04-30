@@ -1,6 +1,12 @@
 import Cocoa
 
 public class VolumesViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+    public struct Volume {
+        public let name: String
+        public let mountPoint: String
+        public let deviceName: String
+    }
+
     @IBOutlet private var volumesTableView: NSTableView!
 
     /** Mounted volume list */
@@ -31,7 +37,7 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
         mountedVolumes.removeAll()
         for url: URL in urls {
             /* Filter-out unwanted volumes */
-            guard url.lastPathComponent == "_ArchiveMounter" else { // FIXME
+            guard url.lastPathComponent == Constants.mountPointName else {
                 continue
             }
             guard let values: URLResourceValues = try? url.resourceValues(forKeys: [.volumeNameKey]) else {
