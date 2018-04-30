@@ -31,27 +31,24 @@ public class Mounter {
     public var encoding: String?
     /** Mount flags, see `MountFlags` */
     public var mountFlags: MountFlags = [.rdonly]
-    /** Mount points */
-    private let mountPoint: String
 
     /**
      - Returns: Mounter instance or `nil` if FUSE for macOS installation is not detected
      - Parameters:
         - filePath: Path to archive file
      */
-    public init(filePath: String, mountPoint: String) {
+    public init(filePath: String) {
         self.filePath = filePath
         let fileURL: URL = URL(fileURLWithPath: filePath)
         self.fileName = fileURL.lastPathComponent
         self.fileType = fileURL.pathExtension
         self.volumeName = fileURL.deletingPathExtension().lastPathComponent
-        self.mountPoint = mountPoint
     }
 
     /** Mounts archive file */
     public func mount() throws -> String {
         let mounter: MountHelper = try MountHelperFactory.getHelper(fileType: fileType)
-        try createMountPoint()
+        let mountPoint: String = try createTemporaryDirectory()
 
         var options: [String] = ["volname=\(volumeName)", "fsname=\(filePath)"]
         if let encoding: String = encoding {
@@ -72,16 +69,25 @@ public class Mounter {
     }
 
     /**
-     Creates mount point directory
+     Creates temporary subdirectory in `$TMPDIR`
      - Throws: `RuntimeError` on `createDirectory()` failure
+     - Note: Generated UUID is used as a subdirectory name
      */
-    private func createMountPoint() throws {
-        let url: URL = URL(fileURLWithPath: mountPoint)
+    private func createTemporaryDirectory() throws -> String {
+        let tempURL: URL
+        let uuid: String = UUID().uuidString
+        if #available(OSX 10.12, *) {
+            tempURL = FileManager.default.temporaryDirectory
+        } else {
+            tempURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        }
+        let url: URL = tempURL.appendingPathComponent(uuid).appendingPathComponent(Constants.mountPointName)
         do {
             try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         } catch {
-            throw RuntimeError(message: "Failed to create mount point directory",
+            throw RuntimeError(message: "Failed to create temporary directory",
                                description: error.localizedDescription)
         }
+        return url.path
     }
 }
