@@ -102,8 +102,10 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
         switch identifier.rawValue {
         case "volumeName":
             cell.textField?.stringValue = volume.name
+            cell.textField?.toolTip = volume.name
         case "deviceName":
             cell.textField?.stringValue = volume.deviceName
+            cell.textField?.toolTip = volume.deviceName
         default:
             break
         }
