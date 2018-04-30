@@ -45,6 +45,14 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
             guard url.lastPathComponent == Constants.mountPointName else {
                 continue
             }
+            guard let fsStats: FSStats = getFSStats(of: url.path) else {
+                NSLog("Error obtaining filesystem statistics for URL \"%@\"", url.path)
+                continue
+            }
+            /* Filter-out more unwanted volumes */
+            guard fsStats.fsTypeName == "osxfuse" else {
+                continue
+            }
             guard let values: URLResourceValues = try? url.resourceValues(forKeys: [.volumeNameKey]) else {
                 NSLog("Error obtaining resource values for URL \"%@\"", url.path)
                 continue
@@ -53,37 +61,11 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
                 NSLog("\"volumeName\" is not present in resource values of URL \"%@\"", url.path)
                 continue
             }
-            guard let deviceName: String = getDeviceName(of: url.path) else {
-                NSLog("Error obtaining device name of URL \"%@\"", url.path)
-                continue
-            }
-            mountedVolumes.append(Volume(name: volumeName, mountPoint: url, deviceName: deviceName))
+            mountedVolumes.append(Volume(name: volumeName, mountPoint: url, deviceName: fsStats.deviceName))
         }
 
         /* Update view */
         volumesTableView.reloadData()
-    }
-
-    /**
-     Uses statfs() to get device name
-     - Parameters:
-        - path: Path to file or directory
-     - Returns: Device name or nil
-     */
-    private func getDeviceName(of path: String) -> String? {
-        /* Get "device" name */
-        let buf: UnsafeMutablePointer<statfs> = UnsafeMutablePointer<statfs>.allocate(capacity: 1)
-        defer { buf.deinitialize(count: 1) }
-        if statfs(path.cString(using: .utf8), buf) != 0 {
-            NSLog("statfs \"%@\" error, errno=%i", path, errno)
-            return nil
-        }
-        return withUnsafePointer(to: &buf.pointee.f_mntfromname) { ptr -> String in
-            return ptr.withMemoryRebound(to: Int8.self,
-                                         capacity: Int(MNAMELEN)) { (str: UnsafePointer<Int8>) in
-                                            return String(cString: str)
-            }
-        }
     }
 
     /** Returns number of volumes */

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8A0754D2208249FB00BCB9D9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0754D1208249FB00BCB9D9 /* MainViewController.swift */; };
+		8A6F12FA20973F9A00910DA8 /* FSStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6F12F920973F9A00910DA8 /* FSStats.swift */; };
 		8A7983A8207C88E700BB65E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A7983A7207C88E700BB65E1 /* Assets.xcassets */; };
 		8A7983B6207C891600BB65E1 /* MountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7983B3207C891600BB65E1 /* MountHelper.swift */; };
 		8A7983B7207C891600BB65E1 /* CommandRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7983B4207C891600BB65E1 /* CommandRunner.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		8A0754D1208249FB00BCB9D9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		8A6F12F920973F9A00910DA8 /* FSStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSStats.swift; sourceTree = "<group>"; };
 		8A7983A2207C88E600BB65E1 /* Archive Mounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Archive Mounter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A7983A7207C88E700BB65E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A7983AC207C88E700BB65E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				8AC4FBD72081F9DC003149F7 /* AppDelegate.swift */,
+				8A6F12F920973F9A00910DA8 /* FSStats.swift */,
 				8A0754D1208249FB00BCB9D9 /* MainViewController.swift */,
 				8AEAF9B320971CBB00EBDD61 /* VolumesViewController.swift */,
 				8AC4FBD920821682003149F7 /* Mounter.swift */,
@@ -214,6 +217,7 @@
 			files = (
 				8A7983B7207C891600BB65E1 /* CommandRunner.swift in Sources */,
 				8AC4FBDA20821682003149F7 /* Mounter.swift in Sources */,
+				8A6F12FA20973F9A00910DA8 /* FSStats.swift in Sources */,
 				8AEAF9B420971CBB00EBDD61 /* VolumesViewController.swift in Sources */,
 				8A7983B6207C891600BB65E1 /* MountHelper.swift in Sources */,
 				8A0754D2208249FB00BCB9D9 /* MainViewController.swift in Sources */,
