@@ -9,9 +9,9 @@ public class Mounter {
                              volumeName: String,
                              readOnly: Bool) throws {
         let helper: MountHelper = try MountHelperFactory.getHelper(fileType: archivePath.pathExtension)
-        var options: [String] = ["volname=\(volumeName)", "fsname=\(archivePath.path)"]
+        var options: [String] = ["volname=\(sanitise(volumeName))", "fsname=\(sanitise(archivePath.path))"]
         if let encoding: String = encoding {
-            options.append(contentsOf: ["modules=iconv", "from_code=\(encoding)", "to_code=utf-8"])
+            options.append(contentsOf: ["modules=iconv", "from_code=\(sanitise(encoding))", "to_code=utf-8"])
         }
         if readOnly {
             options.append("rdonly")
@@ -25,5 +25,10 @@ public class Mounter {
         }
 
         try helper.mount(archivePath: archivePath.path, mountPoint: mountPoint.path, mountOptions: options)
+    }
+
+    /* Looks like FUSE is unable to handle comma in options */
+    static private func sanitise(_ option: String) -> String {
+        return option.replacingOccurrences(of: ",", with: "_")
     }
 }
