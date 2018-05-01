@@ -1,4 +1,4 @@
 osx_image: xcode9.3
 language: objective-c
 
-script: xcodebuild clean -project ArchiveMounter.xcodeproj -scheme ArchiveMounter && xcodebuild build -project ArchiveMounter.xcodeproj -scheme ArchiveMounter CODE_SIGNING_REQUIRED=NO
+script: xcodebuild clean -project ArchiveMounter.xcodeproj -scheme ArchiveMounter && xcodebuild build -project ArchiveMounter.xcodeproj -scheme ArchiveMounter CODE_SIGN_IDENTITY=""
