@@ -7,6 +7,13 @@ It currently supports **ZIP** and **RAR** archives.
 [![Travis](https://travis-ci.org/ivoronin/ArchiveMounter.svg?branch=master)](https://travis-ci.org/ivoronin/ArchiveMounter)
 [![HitCount](http://hits.dwyl.io/ivoronin/ArchiveMounter.svg)](http://hits.dwyl.io/ivoronin/ArchiveMounter)
 
+# Screenshots
+## Main window
+<img src="https://raw.githubusercontent.com/ivoronin/ArchiveMounter/gh-pages/MainWindow.png" width="520" height="229"/>
+
+## Manage volumes window
+<img src="https://raw.githubusercontent.com/ivoronin/ArchiveMounter/gh-pages/VolumesWindow.png" width="800" height="400"/>
+
 ## Requirements
 :exclamation:You should download and install latest version of [FUSE for macOS](https://osxfuse.github.io/) before using this application.
 
