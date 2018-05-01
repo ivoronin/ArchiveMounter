@@ -78,9 +78,11 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
         guard let identifier: NSUserInterfaceItemIdentifier = tableColumn?.identifier else {
             return nil
         }
+        guard let cell: NSTableCellView = tableView.makeView(withIdentifier: identifier,
+                                                             owner: self) as? NSTableCellView else {
+            return nil
+        }
         let volume: Volume = mountedVolumes[row]
-        // swiftlint:disable:next force_cast
-        let cell: NSTableCellView = tableView.makeView(withIdentifier: identifier, owner: self) as! NSTableCellView
         switch identifier.rawValue {
         case "volumeName":
             cell.textField?.stringValue = volume.name
