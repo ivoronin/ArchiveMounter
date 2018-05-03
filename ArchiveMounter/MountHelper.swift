@@ -11,12 +11,10 @@ public class MountHelper {
     }
     /** Absolute path to mount helper utility */
     internal var helperPath: String {
-        get { // swiftlint:disable:this implicit_getter
-            return Bundle.main.bundleURL /* URL("/Applications/Archive Mounter.app") */
-                .appendingPathComponent("Contents")
-                .appendingPathComponent("Executables")
-                .appendingPathComponent(helperName).path
-        }
+        return Bundle.main.bundleURL /* URL("/Applications/Archive Mounter.app") */
+            .appendingPathComponent("Contents")
+            .appendingPathComponent("Executables")
+            .appendingPathComponent(helperName).path
     }
 
     /** required initializer */
