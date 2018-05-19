@@ -9,7 +9,7 @@ FULL_PRODUCT_NAME = environ['FULL_PRODUCT_NAME']
 
 SOURCES = {
     'unrar': {
-        'url': 'https://www.rarlab.com/rar/unrarsrc-5.6.3.tar.gz',
+        'url': 'https://www.rarlab.com/rar/unrarsrc-5.6.4.tar.gz',
     },
     'rar2fs': {
         'url': 'https://github.com/hasse69/rar2fs',
