@@ -29,7 +29,8 @@ public class AppDelegate: NSObject, NSApplicationDelegate {
 
     /** Handles `openFile` event, fired before `applicationDidFinishLaunching` */
     public func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        (sender.mainWindow?.contentViewController as? MainViewController)?.openFile(filePath: filename)
+        let fileUrl: URL = URL(fileURLWithPath: filename)
+        (sender.mainWindow?.contentViewController as? MainViewController)?.openFile(fileUrl: fileUrl)
         return true
     }
 }

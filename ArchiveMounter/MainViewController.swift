@@ -30,9 +30,10 @@ public class MainViewController: NSViewController {
      - Parameters:
         - fileName: File name
      */
-    public func openFile(filePath: String) {
-        archivePathField.stringValue = filePath
-        archivePathField.toolTip = filePath
+    public func openFile(fileUrl: URL) {
+        archivePathField.stringValue = fileUrl.path
+        archivePathField.toolTip = fileUrl.path
+        volumeNameField.placeholderString = fileUrl.deletingPathExtension().lastPathComponent
     }
 
     /** Handles "Browse" button clicks */
@@ -40,8 +41,8 @@ public class MainViewController: NSViewController {
         let panel: NSOpenPanel = NSOpenPanel()
         panel.allowedFileTypes = MountHelperFactory.allowedFileTypes
         if panel.runModal() == .OK {
-            if let filePath: String = panel.urls.first?.path {
-                openFile(filePath: filePath)
+            if let fileUrl: URL = panel.urls.first {
+                openFile(fileUrl: fileUrl)
             }
         }
     }
@@ -56,7 +57,13 @@ public class MainViewController: NSViewController {
 
             let volumeName: String
             if volumeNameField.stringValue.isEmpty {
-                volumeName = archivePath.deletingPathExtension().lastPathComponent
+                guard let defaultName: String = volumeNameField.placeholderString else {
+                    throw RuntimeError(message: "Unexpected error", description: "Cannot get default volume name")
+                }
+                if defaultName.isEmpty {
+                    throw RuntimeError(message: "Unexpected error", description: "Default volume name is empty")
+                }
+                volumeName = defaultName
             } else {
                 volumeName = volumeNameField.stringValue
             }
