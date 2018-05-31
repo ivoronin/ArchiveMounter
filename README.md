@@ -24,6 +24,13 @@ Latest stable release: [Archive.Mounter.1.4.0.dmg](https://github.com/ivoronin/A
 You can run app directly and choose an archive to mount or use it from **Finder**'s `Open With` context menu.\
 It is also possible to use Archive Mounter as a default app for opening archives (see [Apple KB article](https://support.apple.com/kb/ph25685)).
 
+## Q & A
+ - Q: I mounted an archive but I do not see a volume icon in the Finder's sidebar and on the Desktop. Why?
+   - A: Please check this:
+     - [I mounted a "FUSE for OS X" volume but I do not see a volume icon on the Desktop. Why?](https://github.com/osxfuse/osxfuse/wiki/FAQ#42-i-mounted-a-fuse-for-os-x-volume-but-i-do-not-see-a-volume-icon-on-the-desktop-why).
+     - [I mounted a "FUSE for OS X" volume but I do not see a volume icon in the Finder's sidebar. I have looked at all relevant Finder preferences, but still nothing. What is happening?](https://github.com/osxfuse/osxfuse/wiki/FAQ#43-i-mounted-a-fuse-for-os-x-volume-but-i-do-not-see-a-volume-icon-in-the-finders-sidebar-i-have-looked-at-all-relevant-finder-preferences-but-still-nothing-what-is-happening)
+   - A: Mounted volumes are shown in Finder's "Computer" view (<kbd>Shift-Command-C</kbd>)
+
 ## Build requirements
  - Xcode
  - FUSE for macOS
