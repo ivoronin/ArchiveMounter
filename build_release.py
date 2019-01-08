@@ -12,4 +12,7 @@ if __name__ == '__main__':
     rmrf(ARCHIVEPATH)
     run(f'xcodebuild -project "{PROJECT}" -scheme "{SCHEME}" \
         -configuration "{CONFIGURATION}" -archivePath "{ARCHIVEPATH}" archive')
+    with cd(f'{ARCHIVEPATH}/Products/Applications') as cwd:
+        run(f'rm -f {cwd}/ArchiveMounter.zip')
+        run(f'zip -r {cwd}/ArchiveMounter.zip "Archive Mounter.app"')
     run(f'./node_modules/.bin/create-dmg --overwrite "{ARCHIVEPATH}/Products/Applications/Archive Mounter.app"')

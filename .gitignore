@@ -2,5 +2,6 @@ xcuserdata
 .DS_Store
 node_modules
 *.dmg
+*.zip
 *.xcarchive
 __pycache__

@@ -6,7 +6,7 @@ from contextlib import contextmanager
 def cd(newPath):
     savedPath = getcwd()
     chdir(expanduser(newPath))
-    yield
+    yield savedPath
     chdir(savedPath)
 
 def run(command):
