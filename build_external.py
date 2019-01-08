@@ -7,6 +7,11 @@ DERIVED_FILES_DIR = environ['DERIVED_FILES_DIR']
 BUILT_PRODUCTS_DIR = environ['BUILT_PRODUCTS_DIR']
 FULL_PRODUCT_NAME = environ['FULL_PRODUCT_NAME']
 
+MACOSX_VERSION_MIN = '10.10'
+CFLAGS = f'-mmacosx-version-min={MACOSX_VERSION_MIN}'
+CC = f'cc {CFLAGS}'
+CXX = f'c++ {CFLAGS}'
+
 SOURCES = {
     'unrar': {
         'url': 'https://www.rarlab.com/rar/unrarsrc-5.6.4.tar.gz',
@@ -43,20 +48,20 @@ def build_libunrar():
     rmrf('unrar')
     run(f'curl -o - "{SOURCES["unrar"]["url"]}" | tar xvzf -')
     with cd('unrar'):
-        make('lib')
+        make(f'lib CXX="{CXX}"')
 
 def build_rar2fs():
     build_libunrar()
     with cloned('rar2fs'):
         run('autoreconf -f -i 2> /dev/null')
-        run('./configure --with-fuse=/usr/local/include/osxfuse --with-unrar=../unrar')
+        run(f'ac_cv_func_utimensat=no CC="{CC}" CXX="{CXX}" ./configure --with-fuse=/usr/local/include/osxfuse --with-unrar=../unrar')
         make('rar2fs')
 
 def build_libzip():
     with cloned('libzip'):
         run('mkdir build')
         with cd('build'):
-            run('cmake -DBUILD_SHARED_LIBS=OFF ..')
+            run(f'CC="{CC}" CXX="{CXX}" cmake -DBUILD_SHARED_LIBS=OFF ..')
             make()
 
 def build_fusezip():
@@ -65,7 +70,7 @@ def build_fusezip():
         DERIVED_FILES_DIR_E = DERIVED_FILES_DIR.replace(" ", "\ ")
         ZIPFLAGS=f'-I{DERIVED_FILES_DIR_E}/libzip/lib -I{DERIVED_FILES_DIR_E}/libzip/build'
         LIBS=f'-Llib -lfusezip \$(shell pkg-config fuse --libs) -L{DERIVED_FILES_DIR_E}/libzip/build/lib -lzip -lz -lbz2'
-        make(f'ZIPFLAGS="{ZIPFLAGS}" LIBS="{LIBS}"')
+        make(f'ZIPFLAGS="{ZIPFLAGS}" LIBS="{LIBS}" CXX="{CXX}"')
 
 def build_all():
     build_rar2fs()
