@@ -14,11 +14,11 @@ CXX = f'c++ {CFLAGS}'
 
 SOURCES = {
     'unrar': {
-        'url': 'https://www.rarlab.com/rar/unrarsrc-5.6.4.tar.gz',
+        'url': 'https://www.rarlab.com/rar/unrarsrc-5.6.8.tar.gz',
     },
     'rar2fs': {
         'url': 'https://github.com/hasse69/rar2fs',
-        'version': 'v1.27.0',
+        'version': 'v1.27.1',
     },
     'libzip': {
         'url': 'https://github.com/nih-at/libzip',
@@ -27,7 +27,7 @@ SOURCES = {
     },
     'fuse-zip': {
         'url': 'https://bitbucket.org/agalanin/fuse-zip',
-        'version': '0.4.5'
+        'version': '0.5.0'
     }
 }
 
@@ -70,7 +70,7 @@ def build_fusezip():
         DERIVED_FILES_DIR_E = DERIVED_FILES_DIR.replace(" ", "\ ")
         ZIPFLAGS=f'-I{DERIVED_FILES_DIR_E}/libzip/lib -I{DERIVED_FILES_DIR_E}/libzip/build'
         LIBS=f'-Llib -lfusezip \$(shell pkg-config fuse --libs) -L{DERIVED_FILES_DIR_E}/libzip/build/lib -lzip -lz -lbz2'
-        make(f'ZIPFLAGS="{ZIPFLAGS}" LIBS="{LIBS}" CXX="{CXX}"')
+        make(f'ZIPFLAGS="{ZIPFLAGS}" LIBS="{LIBS}" CXX="{CXX} -std=c++11"')
 
 def build_all():
     build_rar2fs()
