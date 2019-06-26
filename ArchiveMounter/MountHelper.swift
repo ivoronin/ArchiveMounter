@@ -43,8 +43,9 @@ public class MountHelper {
 public class MountHelperFactory {
     /** File type to helper type mapping */
     private static let fileTypeHelpers: [String: MountHelper.Type]  = [
-        "zip": ZipMountHelper.self,
-        "rar": RarMountHelper.self
+        "jar": ZipMountHelper.self,
+        "rar": RarMountHelper.self,
+        "zip": ZipMountHelper.self
     ]
     /** Supported archive file types */
     public static let allowedFileTypes: [String] = Array(Set(fileTypeHelpers.keys))
