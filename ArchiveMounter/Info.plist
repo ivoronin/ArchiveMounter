@@ -9,8 +9,9 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>zip</string>
+				<string>jar</string>
 				<string>rar</string>
+				<string>zip</string>
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
@@ -29,7 +30,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4.2</string>
+	<string>1.4.3</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
