@@ -14,11 +14,11 @@ CXX = f'c++ {CFLAGS}'
 
 SOURCES = {
     'unrar': {
-        'url': 'https://www.rarlab.com/rar/unrarsrc-5.6.8.tar.gz',
+        'url': 'https://www.rarlab.com/rar/unrarsrc-5.7.5.tar.gz',
     },
     'rar2fs': {
         'url': 'https://github.com/hasse69/rar2fs',
-        'version': 'v1.27.1',
+        'version': 'v1.27.2',
     },
     'libzip': {
         'url': 'https://github.com/nih-at/libzip',
