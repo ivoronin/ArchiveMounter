@@ -1,7 +1,7 @@
 import AppKit
 
-public struct Constants {
-    static public let mountPointName: String = "_ArchiveMounter"
+public enum Constants {
+    public static let mountPointName: String = "_ArchiveMounter"
 }
 
 @NSApplicationMain

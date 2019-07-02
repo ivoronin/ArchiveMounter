@@ -25,17 +25,6 @@ public class MainViewController: NSViewController {
     @IBOutlet private var encodingComboBox: NSComboBox!
     @IBOutlet private var readOnlyCheckBox: NSButton!
 
-    /**
-     Updates archivePath field
-     - Parameters:
-        - fileName: File name
-     */
-    public func openFile(fileUrl: URL) {
-        archivePathField.stringValue = fileUrl.path
-        archivePathField.toolTip = fileUrl.path
-        volumeNameField.placeholderString = fileUrl.deletingPathExtension().lastPathComponent
-    }
-
     /** Handles "Browse" button clicks */
     @IBAction private func browseButtonClicked(_ sender: NSButton) {
         let panel: NSOpenPanel = NSOpenPanel()
@@ -48,6 +37,7 @@ public class MainViewController: NSViewController {
     }
 
     /** Handles "Mount" button clicks */
+    // swiftlint:disable:next function_body_length
     @IBAction private func mountButtonClicked(_ sender: NSButton) {
         do {
             guard !archivePathField.stringValue.isEmpty else {
@@ -80,11 +70,13 @@ public class MainViewController: NSViewController {
             let encoding: String? = encodingComboBox.stringValue.isEmpty ? nil : encodingComboBox.stringValue
             let readOnly: Bool = readOnlyCheckBox.state == .on
 
-            try Mounter.mount(archivePath: archivePath,
-                              mountPoint: mountPoint,
-                              encoding: encoding,
-                              volumeName: volumeName,
-                              readOnly: readOnly)
+            try Mounter.mount(
+                archivePath: archivePath,
+                mountPoint: mountPoint,
+                encoding: encoding,
+                volumeName: volumeName,
+                readOnly: readOnly
+            )
 
             NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: mountPoint.path)
             NSApp.stop(nil)
@@ -103,5 +95,16 @@ public class MainViewController: NSViewController {
             }
             alert.runModal()
         }
+    }
+
+    /**
+     Updates archivePath field
+     - Parameters:
+     - fileName: File name
+     */
+    public func openFile(fileUrl: URL) {
+        archivePathField.stringValue = fileUrl.path
+        archivePathField.toolTip = fileUrl.path
+        volumeNameField.placeholderString = fileUrl.deletingPathExtension().lastPathComponent
     }
 }

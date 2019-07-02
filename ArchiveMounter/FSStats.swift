@@ -16,9 +16,11 @@ public struct FSStats {
 private func bytesTupleToString<T, I: BinaryInteger>(field: T, length: I) -> String {
     var buf: T = field
     return withUnsafePointer(to: &buf) { pointer -> String in
-        pointer.withMemoryRebound(to: CChar.self,
-                                  capacity: Int(length)) { (cString: UnsafePointer<CChar>) -> String in
-                                    String(cString: cString)
+        pointer.withMemoryRebound(
+            to: CChar.self,
+            capacity: Int(length)
+        ) { (cString: UnsafePointer<CChar>) -> String in
+            String(cString: cString)
         }
     }
 }
@@ -37,6 +39,8 @@ public func getFSStats(of path: String) -> FSStats? {
         NSLog("statfs \"%@\" error, errno=%i", path, errno)
         return nil
     }
-    return FSStats(fsTypeName: bytesTupleToString(field: buf.pointee.f_fstypename, length: MFSNAMELEN),
-                   deviceName: bytesTupleToString(field: buf.pointee.f_mntfromname, length: MNAMELEN))
+    return FSStats(
+        fsTypeName: bytesTupleToString(field: buf.pointee.f_fstypename, length: MFSNAMELEN),
+        deviceName: bytesTupleToString(field: buf.pointee.f_mntfromname, length: MNAMELEN)
+    )
 }

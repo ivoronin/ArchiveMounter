@@ -18,16 +18,52 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
     override public func viewDidLoad() {
         super.viewDidLoad()
         /* Volume-related notifications */
-        for notificationName: Notification.Name in [NSWorkspace.didMountNotification,
-                                                    NSWorkspace.didRenameVolumeNotification,
-                                                    NSWorkspace.didUnmountNotification] {
-            _ = NSWorkspace.shared.notificationCenter.addObserver(forName: notificationName,
-                                                                  object: NSWorkspace.shared,
-                                                                  queue: .main) { _ in self.updateVolumesTable() }
+        for notificationName: Notification.Name in [
+            NSWorkspace.didMountNotification,
+            NSWorkspace.didRenameVolumeNotification,
+            NSWorkspace.didUnmountNotification
+        ] {
+            _ = NSWorkspace.shared.notificationCenter.addObserver(
+                forName: notificationName,
+                object: NSWorkspace.shared,
+                queue: .main
+            ) { _ in
+                self.updateVolumesTable()
+            }
         }
 
         /* Populate volumes table */
         updateVolumesTable()
+    }
+
+    /** Handles "Unmount" button clicks */
+    @IBAction private func unmountButtonClicked(_ sender: NSButton) {
+        let index: Int = volumesTableView.selectedRow
+        guard index != -1 else {
+            return
+        }
+        unmountVolume(volume: mountedVolumes[index])
+    }
+
+    /** Handles "Unmount all" button clicks */
+    @IBAction private func unmountAllButtonClicked(_ sender: NSButton) {
+        for volume: Volume in mountedVolumes {
+            unmountVolume(volume: volume)
+        }
+    }
+
+    /** Handles "Open" button clicks */
+    @IBAction private func openButtonClicked(_ sender: NSButton) {
+        let index: Int = volumesTableView.selectedRow
+        guard index != -1 else {
+            return
+        }
+        openVolume(volume: mountedVolumes[index])
+    }
+
+    @IBAction private func tableDoubleClicked(_ sender: NSTableView) {
+        let index: Int = sender.clickedRow
+        openVolume(volume: mountedVolumes[index])
     }
 
     /** Enumerates mounted volumes and populates view */
@@ -78,8 +114,10 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
         guard let identifier: NSUserInterfaceItemIdentifier = tableColumn?.identifier else {
             return nil
         }
-        guard let cell: NSTableCellView = tableView.makeView(withIdentifier: identifier,
-                                                             owner: self) as? NSTableCellView else {
+        guard let cell: NSTableCellView = tableView.makeView(
+            withIdentifier: identifier,
+            owner: self
+        ) as? NSTableCellView else {
             return nil
         }
         let volume: Volume = mountedVolumes[row]
@@ -87,13 +125,14 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
         case "volumeName":
             cell.textField?.stringValue = volume.name
             cell.textField?.toolTip = volume.name
+
         case "deviceName":
             cell.textField?.stringValue = volume.deviceName
             cell.textField?.toolTip = volume.deviceName
+
         default:
             break
         }
-
         return cell
     }
 
@@ -112,35 +151,4 @@ public class VolumesViewController: NSViewController, NSTableViewDataSource, NST
     private func openVolume(volume: Volume) {
         NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: volume.mountPoint.path)
     }
-
-    /** Handles "Unmount" button clicks */
-    @IBAction private func unmountButtonClicked(_ sender: NSButton) {
-        let index: Int = volumesTableView.selectedRow
-        guard index != -1 else {
-            return
-        }
-        unmountVolume(volume: mountedVolumes[index])
-    }
-
-    /** Handles "Unmount all" button clicks */
-    @IBAction private func unmountAllButtonClicked(_ sender: NSButton) {
-        for volume: Volume in mountedVolumes {
-            unmountVolume(volume: volume)
-        }
-    }
-
-    /** Handles "Open" button clicks */
-    @IBAction private func openButtonClicked(_ sender: NSButton) {
-        let index: Int = volumesTableView.selectedRow
-        guard index != -1 else {
-            return
-        }
-        openVolume(volume: mountedVolumes[index])
-    }
-
-    @IBAction private func tableDoubleClicked(_ sender: NSTableView) {
-        let index: Int = sender.clickedRow
-        openVolume(volume: mountedVolumes[index])
-    }
-
 }
