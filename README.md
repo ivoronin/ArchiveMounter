@@ -32,7 +32,7 @@ It is also possible to use Archive Mounter as a default app for opening archives
    - A: Mounted volumes are shown in Finder's "Computer" view (<kbd>Shift-Command-C</kbd>)
 
 ## Build requirements
- - Xcode
+ - Xcode (>= 10.0)
  - FUSE for macOS
  - autoconf
  - automake
@@ -40,5 +40,7 @@ It is also possible to use Archive Mounter as a default app for opening archives
  - mercurial
  - pkg-config
  - python@3
- - swiftlint
+ - swiftlint (>= 0.33)
  - npm
+
+System headers need to be present in /usr/include (install /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg if needed)
