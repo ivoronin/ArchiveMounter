@@ -202,7 +202,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "[ \"${CI}\" ] || swiftlint --enable-all-rules";
+			shellScript = "[ \"${CI}\" ] || swiftlint\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
