@@ -5,7 +5,6 @@
 It currently supports **ZIP** and **RAR** archives.
 
 [![Travis](https://travis-ci.org/ivoronin/ArchiveMounter.svg?branch=master)](https://travis-ci.org/ivoronin/ArchiveMounter)
-[![HitCount](http://hits.dwyl.io/ivoronin/ArchiveMounter.svg)](http://hits.dwyl.io/ivoronin/ArchiveMounter)
 
 # Screenshots
 ## Main window
