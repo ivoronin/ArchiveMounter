@@ -4,6 +4,9 @@
 **Archive Mounter** is a macOS application allowing to mount archive files as disk images.\
 It currently supports **ZIP** and **RAR** archives.
 
+## Warning
+⛔️ This software uses [FUSE for macOS](https://osxfuse.github.io/), which is [no longer open source](https://colatkinson.site/macos/fuse/2019/09/29/osxfuse/)
+
 [![Travis](https://travis-ci.org/ivoronin/ArchiveMounter.svg?branch=master)](https://travis-ci.org/ivoronin/ArchiveMounter)
 
 # Screenshots
